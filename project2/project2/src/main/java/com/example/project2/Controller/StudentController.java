@@ -3,6 +3,8 @@ package com.example.project2.Controller;
 import com.example.project2.Entity.Student;
 import com.example.project2.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,14 +17,16 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+
     @PostMapping("/addStudent")
-    public Student postDetails(@RequestBody Student student)
-    {
-        return studentService.saveDetails(student);
+    public ResponseEntity<Student> postDetails(@RequestBody Student student) {
+        Student savedStudent = studentService.saveDetails(student);
+        return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
     }
+
     @GetMapping("/getStudent")
-    public List<Student> getDetails()
-    {
-        return studentService.getAllDetails();
+    public ResponseEntity<List<Student>> getDetails() {
+        List<Student> students = studentService.getAllDetails();
+        return new ResponseEntity<>(students, HttpStatus.OK);
     }
 }
