@@ -19,4 +19,9 @@ public class StudentService {
     public List<Student> getAllDetails(){
         return studentRepo.findAll();
     }
+
+    public void deleteStudentById(int id) {
+        studentRepo.deleteById(id);
+    }
+
 }
